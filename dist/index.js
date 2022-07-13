@@ -1015,8 +1015,9 @@ class GitHubHelper {
             }
             // Apply assignees
             if (inputs.assignees.length > 0) {
-                core.info(`Applying assignees '${inputs.assignees}'`);
-                yield this.octokit.rest.issues.addAssignees(Object.assign(Object.assign({}, this.parseRepository(baseRepository)), { issue_number: pull.number, assignees: inputs.assignees }));
+                const assignee = inputs.assignees[Math.floor(Math.random() * inputs.assignees.length)];
+                core.info(`Applying random assignee '${assignee}'`);
+                yield this.octokit.rest.issues.addAssignees(Object.assign(Object.assign({}, this.parseRepository(baseRepository)), { issue_number: pull.number, assignees: [assignee] }));
             }
             // Request reviewers and team reviewers
             const requestReviewersParams = {};

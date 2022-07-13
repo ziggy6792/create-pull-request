@@ -144,11 +144,12 @@ export class GitHubHelper {
     }
     // Apply assignees
     if (inputs.assignees.length > 0) {
-      core.info(`Applying assignees '${inputs.assignees}'`)
+      const assignee = inputs.assignees[Math.floor(Math.random() * inputs.assignees.length)];
+      core.info(`Applying random assignee '${assignee}'`)
       await this.octokit.rest.issues.addAssignees({
         ...this.parseRepository(baseRepository),
         issue_number: pull.number,
-        assignees: inputs.assignees
+        assignees: [assignee]
       })
     }
 
